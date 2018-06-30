@@ -21,4 +21,3 @@ public class EventException extends RuntimeException {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 }
-

@@ -1,35 +1,32 @@
 package com.king.server.impl;
 
+import com.king.server.LifeCycle;
 import com.king.server.Server;
 import com.king.server.ServerStatus;
-import com.king.server.config.ServerConfig;
-import com.king.server.io.Connector;
+import com.king.server.io.connector.Connector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.util.List;
+import java.util.Set;
 
 public class SimpleServer implements Server {
-    private static Logger logger = LoggerFactory.getLogger(SimpleServer.class);
-    private final int port;
-    private final List<Connector> connectorList;
+    private static final Logger logger = LoggerFactory.getLogger(SimpleServer.class);
+    private final Set<Connector> connectors;
     private volatile ServerStatus serverStatus = ServerStatus.STOPED;
 
-    public SimpleServer(ServerConfig serverConfig, List<Connector> connectorList) {
-        this.port = serverConfig.getPort();
-        this.connectorList = connectorList;
+    public SimpleServer(Set<Connector> connectorList) {
+        this.connectors = connectorList;
     }
 
     @Override
-    public void start() throws IOException {
-        connectorList.stream().forEach(connector -> connector.start());
+    public void start() {
+        connectors.forEach(LifeCycle::start);
         this.serverStatus = ServerStatus.STARTED;
     }
 
     @Override
     public void stop() {
-        connectorList.stream().forEach(connector -> connector.stop());
+        connectors.forEach(LifeCycle::stop);
         this.serverStatus = ServerStatus.STOPED;
         logger.info("Server stop");
     }
@@ -40,7 +37,7 @@ public class SimpleServer implements Server {
     }
 
     @Override
-    public int getPort() {
-        return port;
+    public Set<Connector> getConnectors() {
+        return connectors;
     }
 }
