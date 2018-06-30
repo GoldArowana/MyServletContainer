@@ -13,13 +13,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Optional;
 
-public abstract class AbstractHttpRequestMessageParser implements HttpRequestMessageParser {
-    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractHttpRequestMessageParser.class);
+public abstract class AbstractHttpRequestMessageParser
+        implements HttpRequestMessageParser {
+
+    private static final Logger LOGGER =
+            LoggerFactory.getLogger(AbstractHttpRequestMessageParser.class);
 
     /**
      * 定义parse流程
-     *
-     * @return
      */
     @Override
     public HttpRequestMessage parse(InputStream inputStream) throws IOException {
@@ -34,60 +35,51 @@ public abstract class AbstractHttpRequestMessageParser implements HttpRequestMes
         //5.解析构造HTTP Body，如果有个的话
         Optional<HttpBody> httpBody = parseRequestBody();
 
-        HttpRequestMessage httpRequestMessage = new HttpRequestMessage(requestLine, messageHeaders, httpBody, httpQueryParameters);
+        HttpRequestMessage httpRequestMessage =
+                new HttpRequestMessage(requestLine, messageHeaders, httpBody, httpQueryParameters);
+
         return httpRequestMessage;
     }
 
     /**
      * 读取请求发送的数据，并保存为byte数组设置到解析上下文中
-     *
-     * @param inputStream
-     * @throws IOException
      */
-    private void getAndSetBytesBeforeBodyToContext(InputStream inputStream) throws IOException {
+    private void getAndSetBytesBeforeBodyToContext(InputStream inputStream)
+            throws IOException {
+
         byte[] bytes = copyRequestBytesBeforeBody(inputStream);
         HttpParserContext.setHttpMessageBytes(bytes);
         HttpParserContext.setBytesLengthBeforeBody(bytes.length);
         HttpParserContext.setInputStream(inputStream);
+
     }
 
     /**
      * 解析并构建RequestLine
-     *
-     * @return
      */
     protected abstract RequestLine parseRequestLine();
 
     /**
      * 解析并构建HTTP请求Headers集合
-     *
-     * @return
      */
     protected abstract IMessageHeaders parseRequestHeaders();
 
     /**
      * 解析并构建HTTP 请求Body
-     *
-     * @return
      */
     protected abstract Optional<HttpBody> parseRequestBody();
 
     /**
      * 解析并构建QueryParameter集合
-     *
-     * @return
      */
     protected abstract HttpQueryParameters parseHttpQueryParameters();
 
     /**
      * 构造body(如果有)之前的字节数组
-     *
-     * @param inputStream
-     * @return
-     * @throws IOException
      */
     private byte[] copyRequestBytesBeforeBody(InputStream inputStream) throws IOException {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(inputStream.available());
+        ByteArrayOutputStream byteArrayOutputStream =
+                new ByteArrayOutputStream(inputStream.available());
         int i = -1;
         byte[] temp = new byte[3];
         while ((i = inputStream.read()) != -1) {

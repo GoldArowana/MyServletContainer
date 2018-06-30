@@ -16,7 +16,12 @@ public class ConnectorException extends RuntimeException {
         super(cause);
     }
 
-    public ConnectorException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    public ConnectorException(String message,
+                              Throwable cause,
+                              boolean enableSuppression,
+                              boolean writableStackTrace) {
+
         super(message, cause, enableSuppression, writableStackTrace);
+
     }
 }

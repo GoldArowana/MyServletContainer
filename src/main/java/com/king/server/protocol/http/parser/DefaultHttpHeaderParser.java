@@ -13,7 +13,8 @@ import static com.king.server.protocol.http.HttpConstants.*;
 
 public class DefaultHttpHeaderParser implements HttpHeaderParser {
     private static final String SPLITTER = ":";
-    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultHttpHeaderParser.class);
+    private static final Logger LOGGER =
+            LoggerFactory.getLogger(DefaultHttpHeaderParser.class);
 
     @Override
     public HttpMessageHeaders parse() {
@@ -29,9 +30,6 @@ public class DefaultHttpHeaderParser implements HttpHeaderParser {
 
     /**
      * 从上下文获取bytes并转换为String
-     *
-     * @return
-     * @throws UnsupportedEncodingException
      */
     private String getHttpTextFromContext() throws UnsupportedEncodingException {
         byte[] bytes = HttpParserContext.getHttpMessageBytes();
@@ -40,9 +38,6 @@ public class DefaultHttpHeaderParser implements HttpHeaderParser {
 
     /**
      * 解析Body之前的文本构建HttpHeader，并保存到HttpMessageHeaders中
-     *
-     * @param httpText
-     * @return
      */
     private HttpMessageHeaders doParseHttpMessageHeaders(String httpText) {
         HttpMessageHeaders httpMessageHeaders = new HttpMessageHeaders();
@@ -69,21 +64,29 @@ public class DefaultHttpHeaderParser implements HttpHeaderParser {
                 ) {
             HttpParserContext.setHasBody(true);
             if (httpMessageHeaders.hasHeader(CONTENT_LENGTH)) {
+
                 HttpParserContext.getBodyInfo()
-                        .setContentLength(Integer.valueOf(httpMessageHeaders.getFirstHeader
-                                (CONTENT_LENGTH).getValue()));
+                        .setContentLength(Integer.valueOf(httpMessageHeaders
+                                .getFirstHeader(CONTENT_LENGTH).getValue()));
+
             }
             if (httpMessageHeaders.hasHeader(CONTENT_ENCODING)) {
-                HttpParserContext.setEncoding(httpMessageHeaders.getFirstHeader
-                        (CONTENT_ENCODING).getValue());
+
+                HttpParserContext.setEncoding(httpMessageHeaders
+                        .getFirstHeader(CONTENT_ENCODING).getValue());
+
             }
 
         } else if ((httpMessageHeaders.hasHeader(TRANSFER_ENCODING)
-                && HttpConstants.ENCODING_CHUNKED.equals(httpMessageHeaders.getFirstHeader(TRANSFER_ENCODING).getValue()))) {
+                && HttpConstants.ENCODING_CHUNKED.equals(httpMessageHeaders
+                .getFirstHeader(TRANSFER_ENCODING).getValue()))) {
+
             HttpParserContext.setHasBody(true);
             if (httpMessageHeaders.hasHeader(TRANSFER_ENCODING)) {
-                HttpParserContext.setTransferEncoding(httpMessageHeaders.getFirstHeader
-                        (TRANSFER_ENCODING).getValue());
+
+                HttpParserContext.setTransferEncoding(httpMessageHeaders
+                        .getFirstHeader(TRANSFER_ENCODING).getValue());
+
             }
         }
     }

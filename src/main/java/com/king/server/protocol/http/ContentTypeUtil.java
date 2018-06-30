@@ -11,28 +11,29 @@ import java.util.Properties;
  * Content Type工具类
  */
 public class ContentTypeUtil {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ContentTypeUtil.class);
+    private static final Logger LOGGER =
+            LoggerFactory.getLogger(ContentTypeUtil.class);
+
     private static Properties properties;
 
-    private ContentTypeUtil() {
-    }
-
     static {
-        properties
-                = new Properties();
+        properties = new Properties();
         try {
+
             properties.load(ContentTypeUtil.class
-                    .getClassLoader().getResourceAsStream("mime-mapping.properties"));
+                    .getClassLoader()
+                    .getResourceAsStream("mime-mapping.properties"));
+
         } catch (IOException e) {
             LOGGER.error("load mime-mapping.properties failed", e);
         }
     }
 
+    private ContentTypeUtil() {
+    }
+
     /**
      * 通过文件后缀获取到Content-Type
-     *
-     * @param filePrefix
-     * @return
      */
     public static String getCotentType(String filePrefix) {
         return properties.getProperty(filePrefix, "application/octet-stream");

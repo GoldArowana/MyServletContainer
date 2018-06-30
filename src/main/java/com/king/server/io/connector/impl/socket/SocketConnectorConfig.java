@@ -11,16 +11,16 @@ public class SocketConnectorConfig {
         this.backLog = backLog;
     }
 
-    public int getBackLog() {
-        return backLog;
-    }
-
     public SocketConnectorConfig(int port, String host) {
         this(port, host, 64);
     }
 
     public SocketConnectorConfig(int port) {
         this(port, null);
+    }
+
+    public int getBackLog() {
+        return backLog;
     }
 
     public int getPort() {

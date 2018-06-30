@@ -12,8 +12,13 @@ public class HttpParserContext {
 
     private static final ThreadLocal<byte[]> HTTP_MESSAGE_BYTES = new ThreadLocal<>();
     private static final ThreadLocal<String> REQUEST_QUERY_STRING = new ThreadLocal<>();
-    private static final ThreadLocal<BodyInfo> BODY_INFO = ThreadLocal.withInitial(() -> new BodyInfo());
-    private static final ThreadLocal<Integer> BYTES_LENGTH_BEFORE_BODY = new ThreadLocal<>();
+
+    private static final ThreadLocal<BodyInfo> BODY_INFO =
+            ThreadLocal.withInitial(() -> new BodyInfo());
+
+    private static final ThreadLocal<Integer> BYTES_LENGTH_BEFORE_BODY =
+            new ThreadLocal<>();
+
     private static final ThreadLocal<String> HTTP_METHOD = new ThreadLocal<>();
     private static final ThreadLocal<InputStream> INPUT_STREAM = new ThreadLocal<>();
 
@@ -97,14 +102,14 @@ public class HttpParserContext {
         BODY_INFO.set(bodyInfo);
     }
 
-    public static void setTransferEncoding(String transferEncoding) {
-        BODY_INFO.get().setTransferEncoding(transferEncoding);
-    }
-
     public static String getTransferEncoding() {
         String transferEncoding = BODY_INFO.get().getTransferEncoding();
         return StringUtils.isBlank(transferEncoding)
                 ? HttpConstants.ENCODING_IDENTITY : transferEncoding;
+    }
+
+    public static void setTransferEncoding(String transferEncoding) {
+        BODY_INFO.get().setTransferEncoding(transferEncoding);
     }
 
     public static void removeAll() {

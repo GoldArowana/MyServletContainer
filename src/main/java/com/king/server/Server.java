@@ -10,10 +10,10 @@ import java.util.Set;
  * server接口
  */
 public interface Server {
-    /**g
-     *
+    /**
+     * g
+     * <p>
      * 启动服务器
-     * @throws IOException
      */
     void start() throws IOException;
 
@@ -24,13 +24,11 @@ public interface Server {
 
     /**
      * 获取服务器启停状态
-     * @return
      */
     ServerStatus getStatus();
 
     /**
      * 获取服务器管理的Connector列表
-     * @return
      */
     Set<Connector> getConnectors();
 }

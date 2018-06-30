@@ -12,6 +12,7 @@ import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.SocketChannel;
 
+@Deprecated
 public class SelectableChannelConnection implements ChannelConnection {
 
     private final SelectionKey selectionKey;

@@ -12,7 +12,9 @@ public class HttpResponseMessage implements HttpMessage {
     private final Optional<HttpBody> httpBody;
 
     public HttpResponseMessage(ResponseLine responseLine,
-                               IMessageHeaders messageHeaders, Optional<HttpBody> httpBody) {
+                               IMessageHeaders messageHeaders,
+                               Optional<HttpBody> httpBody) {
+
         this.responseLine = responseLine;
         this.messageHeaders = messageHeaders;
         this.httpBody = httpBody;

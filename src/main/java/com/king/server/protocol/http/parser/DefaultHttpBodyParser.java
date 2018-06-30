@@ -25,14 +25,14 @@ public class DefaultHttpBodyParser implements HttpBodyParser {
     /**
      * 获取encoding
      * 例如：Content-type: application/json; charset=utf-8
-     *
-     * @param contentType
-     * @return
      */
     private String getCharset(String contentType) {
         String charset = "utf-8";
         if (StringUtils.isNotBlank(contentType) && contentType.contains(";")) {
-            charset = contentType.split(";")[1].trim().replace("charset=", "");
+
+            charset = contentType.split(";")[1].trim()
+                    .replace("charset=", "");
+
         }
         return charset;
     }

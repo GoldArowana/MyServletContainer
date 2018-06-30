@@ -13,11 +13,16 @@ public class BodyInfo {
     public BodyInfo() {
     }
 
-    public BodyInfo(String contentType, String encoding, boolean hasBody, int contentLength) {
+    public BodyInfo(String contentType,
+                    String encoding,
+                    boolean hasBody,
+                    int contentLength) {
+
         this.contentType = contentType;
         this.charset = encoding;
         this.hasBody = hasBody;
         this.contentLength = contentLength;
+
     }
 
     public String getContentType() {

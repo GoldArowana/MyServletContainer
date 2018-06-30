@@ -17,7 +17,12 @@ public class EventException extends RuntimeException {
         super(cause);
     }
 
-    protected EventException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    protected EventException(String message,
+                             Throwable cause,
+                             boolean enableSuppression,
+                             boolean writableStackTrace) {
+
         super(message, cause, enableSuppression, writableStackTrace);
+
     }
 }

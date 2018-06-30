@@ -14,12 +14,16 @@ public class HttpRequestMessage implements HttpMessage {
     private final Optional<HttpBody> httpBody;
     private final HttpQueryParameters httpQueryParameters;
 
-    public HttpRequestMessage(RequestLine requestLine, IMessageHeaders messageHeaders, Optional<HttpBody> httpBody,
+    public HttpRequestMessage(RequestLine requestLine,
+                              IMessageHeaders messageHeaders,
+                              Optional<HttpBody> httpBody,
                               HttpQueryParameters httpQueryParameters) {
+
         this.requestLine = requestLine;
         this.messageHeaders = messageHeaders;
         this.httpBody = httpBody;
         this.httpQueryParameters = httpQueryParameters;
+
     }
 
     @Override

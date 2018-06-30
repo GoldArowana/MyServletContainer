@@ -3,6 +3,7 @@ package com.king.server.io.connection;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+
 public interface Connection {
     /**
      * 写入byte[]数组中的所有数据

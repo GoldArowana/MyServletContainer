@@ -18,10 +18,12 @@ public class DefaultHttpRequestMessageParser extends AbstractHttpRequestMessageP
     private final HttpHeaderParser httpHeaderParser;
     private final HttpBodyParser httpBodyParser;
 
-    public DefaultHttpRequestMessageParser(HttpRequestLineParser httpRequestLineParser,
-                                           HttpQueryParameterParser httpQueryParameterParser,
-                                           HttpHeaderParser httpHeaderParser,
-                                           HttpBodyParser httpBodyParser) {
+    public DefaultHttpRequestMessageParser(
+            HttpRequestLineParser httpRequestLineParser,
+            HttpQueryParameterParser httpQueryParameterParser,
+            HttpHeaderParser httpHeaderParser,
+            HttpBodyParser httpBodyParser) {
+
         this.httpRequestLineParser = httpRequestLineParser;
         this.httpQueryParameterParser = httpQueryParameterParser;
         this.httpHeaderParser = httpHeaderParser;
@@ -45,7 +47,10 @@ public class DefaultHttpRequestMessageParser extends AbstractHttpRequestMessageP
     protected IMessageHeaders parseRequestHeaders() {
         HttpMessageHeaders httpMessageHeaders = this.httpHeaderParser.parse();
         if (httpMessageHeaders.hasHeader(CONTENT_TYPE)) {
-            HttpParserContext.setContentType(httpMessageHeaders.getFirstHeader(CONTENT_TYPE).getValue());
+
+            HttpParserContext.setContentType(
+                    httpMessageHeaders.getFirstHeader(CONTENT_TYPE).getValue());
+
         }
         return httpMessageHeaders;
     }
@@ -61,13 +66,12 @@ public class DefaultHttpRequestMessageParser extends AbstractHttpRequestMessageP
 
     /**
      * 判断HTTP请求是否有Body，只支持POST和PUT
-     * @return
      */
     private boolean isHasBodyMethod() {
+
         return ("POST".equals(HttpParserContext.getHttpMethod())
                 || "PUT".equals(HttpParserContext.getHttpMethod()))
                 && HttpParserContext.getHasBody();
+
     }
-
-
 }

@@ -14,11 +14,11 @@ public class IoUtils {
      * 安静地关闭，不抛出异常
      */
     public static void closeQuietly(Closeable closeable) {
-        if(closeable != null) {
+        if (closeable != null) {
             try {
                 closeable.close();
             } catch (IOException e) {
-                logger.error(e.getMessage(),e);
+                logger.error(e.getMessage(), e);
             }
         }
     }

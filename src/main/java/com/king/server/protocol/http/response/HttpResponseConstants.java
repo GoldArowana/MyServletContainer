@@ -6,7 +6,9 @@ import com.king.server.protocol.http.header.HttpMessageHeaders;
 public interface HttpResponseConstants {
     HttpResponseMessage HTTP_404 = HttpResponseMessageBuilder.builder()
             .withResponseLine(ResponseLineConstants.RES_404)
-            .withMessageHeaders(HttpMessageHeaders.newBuilder()
-                    .addHeader("Content-Type", "text/html").build())
+            .withMessageHeaders(HttpMessageHeaders
+                    .newBuilder()
+                    .addHeader("Content-Type", "text/html")
+                    .build())
             .build();
 }

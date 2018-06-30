@@ -17,7 +17,12 @@ public class HandlerException extends RuntimeException {
         super(cause);
     }
 
-    protected HandlerException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    protected HandlerException(String message,
+                               Throwable cause,
+                               boolean enableSuppression,
+                               boolean writableStackTrace) {
+
         super(message, cause, enableSuppression, writableStackTrace);
+
     }
 }

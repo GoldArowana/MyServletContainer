@@ -7,6 +7,7 @@ import com.king.server.io.connection.socket.SocketConnection;
 import com.king.server.protocol.http.HttpRequestMessage;
 import com.king.server.protocol.http.HttpResponseMessage;
 import org.apache.commons.io.IOUtils;
+
 import java.io.IOException;
 
 public abstract class AbstractHttpEventHandler extends AbstractEventHandler<Connection> {
@@ -32,27 +33,17 @@ public abstract class AbstractHttpEventHandler extends AbstractEventHandler<Conn
 
     /**
      * 通过输入构造HttpRequestMessage
-     *
-     * @param connection
-     * @return
      */
     protected abstract HttpRequestMessage doParserRequestMessage(Connection connection);
 
     /**
      * 根据HttpRequestMessage生成HttpResponseMessage
-     *
-     * @param httpRequestMessage
-     * @return
      */
     protected abstract HttpResponseMessage doGenerateResponseMessage(
             HttpRequestMessage httpRequestMessage);
 
     /**
      * 写入HttpResponseMessage到客户端
-     *
-     * @param responseMessage
-     * @param connection
-     * @throws IOException
      */
     protected abstract void doTransferToClient(HttpResponseMessage responseMessage,
                                                Connection connection) throws IOException;

@@ -12,8 +12,8 @@ import java.util.Set;
 
 public class SimpleServer implements Server {
     private static final Logger logger = LoggerFactory.getLogger(SimpleServer.class);
-    private volatile ServerStatus serverStatus = ServerStatus.STOPED;
     private final Set<Connector> connectors;
+    private volatile ServerStatus serverStatus = ServerStatus.STOPED;
 
     public SimpleServer(Set<Connector> connectorList) {
         this.connectors = connectorList;

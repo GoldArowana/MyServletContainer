@@ -14,6 +14,7 @@ import java.util.Optional;
 public class HttpResponseMessageWriter {
     public void write(HttpResponseMessage httpResponseMessage, Connection connection)
             throws IOException {
+
         OutputStream outputStream = connection.getOutputStream();
         ResponseLine responseLine = httpResponseMessage.getResponseLine();
         String responseLineString = responseLine.asString();

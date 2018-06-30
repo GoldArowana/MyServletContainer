@@ -16,25 +16,32 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class SocketConnector extends AbstractConnector {
-    private static final Logger LOGGER = LoggerFactory.getLogger(SocketConnector.class);
+    private static final Logger LOGGER =
+            LoggerFactory.getLogger(SocketConnector.class);
+
     private static final String LOCALHOST = "localhost";
     private static final int DEFAULT_BACKLOG = 50;
     private final int port;
     private final String host;
     private final int backLog;
+    private final EventListener<Connection> eventListener;
     private ServerSocket serverSocket;
     private volatile boolean started = false;
-    private final EventListener<Connection> eventListener;
 
     public SocketConnector(int port, EventListener<Connection> eventListener) {
         this(port, LOCALHOST, DEFAULT_BACKLOG, eventListener);
     }
 
-    public SocketConnector(int port, String host, int backLog, EventListener<Connection> eventListener) {
+    public SocketConnector(int port,
+                           String host,
+                           int backLog,
+                           EventListener<Connection> eventListener) {
+
         this.port = port;
         this.host = StringUtils.isBlank(host) ? LOCALHOST : host;
         this.backLog = backLog;
         this.eventListener = eventListener;
+
     }
 
 

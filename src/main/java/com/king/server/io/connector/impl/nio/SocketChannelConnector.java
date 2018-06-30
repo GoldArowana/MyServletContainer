@@ -21,21 +21,28 @@ import java.util.Iterator;
 import java.util.Set;
 
 public class SocketChannelConnector extends AbstractChannelConnector {
-    private static final Logger LOGGER = LoggerFactory.getLogger(SocketChannelConnector.class);
+    private static final Logger LOGGER =
+            LoggerFactory.getLogger(SocketChannelConnector.class);
+
     private static final String LOCALHOST = "localhost";
     private static final int DEFAULT_BACKLOG = 50;
     private final int port;
     private final String host;
     private final int backLog;
+    private final EventListener<SelectionKey> eventListener;
     private ServerSocketChannel serverSocketChannel;
     private volatile boolean started = false;
-    private final EventListener<SelectionKey> eventListener;
 
-    public SocketChannelConnector(int port, String host, int backLog, EventListener<SelectionKey> eventListener) {
+    public SocketChannelConnector(int port,
+                                  String host,
+                                  int backLog,
+                                  EventListener<SelectionKey> eventListener) {
+
         this.port = port;
         this.host = host;
         this.backLog = backLog;
         this.eventListener = eventListener;
+
     }
 
     public SocketChannelConnector(int port, EventListener<SelectionKey> eventHandler) {
@@ -64,7 +71,10 @@ public class SocketChannelConnector extends AbstractChannelConnector {
         new Thread(() -> {
             try {
                 Selector selector = Selector.open();
-                SelectionKey key = serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
+
+                SelectionKey key =
+                        serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
+
                 while (true) {
                     try {
                         selector.select();
@@ -74,14 +84,21 @@ public class SocketChannelConnector extends AbstractChannelConnector {
                             key = (SelectionKey) iterator.next();
                             iterator.remove();
                             if (key.isAcceptable()) {
-                                ServerSocketChannel ssc = (ServerSocketChannel) key.channel();
+
+                                ServerSocketChannel ssc =
+                                        (ServerSocketChannel) key.channel();
+
                                 SocketChannel socketChannel = ssc.accept();
                                 socketChannel.configureBlocking(false);
                                 ByteBuffer buffer = ByteBuffer.allocate(1024);
-                                socketChannel.register(selector, SelectionKey.OP_READ
-                                        | SelectionKey.OP_WRITE, buffer);
+
+                                socketChannel.register(selector,
+                                        SelectionKey.OP_READ
+                                                | SelectionKey.OP_WRITE, buffer);
+
                                 LOGGER.info("NIO Connector accept Connect from {}",
                                         socketChannel.getRemoteAddress());
+
                             } else if (key.isReadable() || key.isWritable()) {
                                 communicate(key);
                             }
