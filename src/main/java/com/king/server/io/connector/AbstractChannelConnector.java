@@ -5,7 +5,9 @@ import com.king.server.io.connection.Connection;
 import java.nio.channels.SelectionKey;
 
 public abstract class AbstractChannelConnector extends AbstractConnector {
-
+    /**
+     * 通过SelectableChannel通信
+     */
     protected abstract void communicate(SelectionKey selectionKey) throws ConnectorException;
 
     @Override

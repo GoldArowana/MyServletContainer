@@ -39,7 +39,9 @@ public class TcpClient {
         }).start();
 
 
-        BufferedReader bf = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        BufferedReader bf = new BufferedReader(
+                new InputStreamReader(socket.getInputStream()));
+
         while (true) {
             String str = bf.readLine();
             if (str == null) {

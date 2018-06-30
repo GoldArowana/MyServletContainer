@@ -1,5 +1,6 @@
 package com.king.server.io.connector.impl.nio;
 
+
 import com.king.server.event.listener.EventListener;
 import com.king.server.io.connector.AbstractChannelConnector;
 import com.king.server.io.connector.ConnectorException;
@@ -26,9 +27,9 @@ public class SocketChannelConnector extends AbstractChannelConnector {
     private final int port;
     private final String host;
     private final int backLog;
-    private final EventListener<SelectionKey> eventListener;
     private ServerSocketChannel serverSocketChannel;
     private volatile boolean started = false;
+    private final EventListener<SelectionKey> eventListener;
 
     public SocketChannelConnector(int port, String host, int backLog, EventListener<SelectionKey> eventListener) {
         this.port = port;

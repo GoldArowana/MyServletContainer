@@ -1,8 +1,10 @@
 package com.king.server.demo;
 
 import com.king.server.event.handler.AbstractEventHandler;
+import com.king.server.event.handler.HandlerException;
 import com.king.server.io.connection.Connection;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
@@ -18,11 +20,22 @@ public class FileEventHandler extends AbstractEventHandler<Connection> {
     @Override
     protected void doHandle(Connection connection) {
 
-       /* fileTransfer.getFile(this.docBase, connection.getInputStream(),
-                connection.getOutputStream());*/
+        try {
+            getFile(this.docBase, connection.getInputStream(),
+                    connection.getOutputStream());
+        } catch (IOException e) {
+            throw new HandlerException(e);
+        }
     }
 
-    private void getFile(String docBase, InputStream inputstream, OutputStream outputStream) {
+    /**
+     * 返回文件
+     *
+     * @param inputstream
+     * @param outputStream
+     */
+    private void getFile(String docBase, InputStream inputstream,
+                         OutputStream outputStream) {
         fileTransfer.getFile(docBase, inputstream, outputStream);
     }
 

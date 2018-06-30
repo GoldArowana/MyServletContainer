@@ -14,7 +14,7 @@ import java.nio.channels.SelectionKey;
 import java.nio.channels.SocketChannel;
 import java.nio.charset.Charset;
 
-public class NIOEchoEventHandler extends AbstractEventHandler<SelectionKey> {
+class NIOEchoEventHandler extends AbstractEventHandler<SelectionKey> {
     private static final Logger LOGGER = LoggerFactory.getLogger(NIOEchoEventHandler.class);
     private static final Charset CHARSET = Charset.forName("utf-8");
     private static final String LINE_SPLITTER = System.getProperty("line.separator");

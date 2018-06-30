@@ -1,5 +1,6 @@
 package com.king.server.impl;
 
+
 import com.king.server.LifeCycle;
 import com.king.server.Server;
 import com.king.server.ServerStatus;
@@ -11,8 +12,8 @@ import java.util.Set;
 
 public class SimpleServer implements Server {
     private static final Logger logger = LoggerFactory.getLogger(SimpleServer.class);
-    private final Set<Connector> connectors;
     private volatile ServerStatus serverStatus = ServerStatus.STOPED;
+    private final Set<Connector> connectors;
 
     public SimpleServer(Set<Connector> connectorList) {
         this.connectors = connectorList;

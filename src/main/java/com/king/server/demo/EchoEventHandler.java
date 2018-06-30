@@ -1,9 +1,11 @@
 package com.king.server.demo;
 
 import com.king.server.event.handler.AbstractEventHandler;
+import com.king.server.event.handler.HandlerException;
 import com.king.server.io.connection.Connection;
 import com.king.server.io.utils.IoUtils;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
@@ -13,7 +15,11 @@ public class EchoEventHandler extends AbstractEventHandler<Connection> {
 
     @Override
     protected void doHandle(Connection connection) {
-        /*echo(connection.getInputStream(), connection.getOutputStream());*/
+        try {
+            echo(connection.getInputStream(), connection.getOutputStream());
+        } catch (IOException e) {
+            throw new HandlerException(e);
+        }
     }
 
     protected void echo(InputStream inputstream, OutputStream outputStream) {
@@ -24,7 +30,7 @@ public class EchoEventHandler extends AbstractEventHandler<Connection> {
             printWriter.flush();
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                if (line.equals("stop")) {
+                if ("stop".equals(line)) {
                     printWriter.append("bye bye.\n");
                     printWriter.flush();
                     break;

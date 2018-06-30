@@ -1,6 +1,5 @@
 package com.king.server.config;
 
-
 import com.king.server.io.connector.Connector;
 
 import java.util.HashSet;
@@ -14,12 +13,12 @@ public class ServerConfig {
         connectors = builder.connectors;
     }
 
-    public static Builder builder() {
-        return new Builder();
-    }
-
     public Set<Connector> getConnectors() {
         return connectors;
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 
     public static final class Builder {

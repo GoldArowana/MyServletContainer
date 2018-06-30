@@ -1,6 +1,5 @@
 package com.king.server.io.connector.impl.socket;
 
-
 import com.king.server.event.listener.EventListener;
 import com.king.server.io.connection.Connection;
 

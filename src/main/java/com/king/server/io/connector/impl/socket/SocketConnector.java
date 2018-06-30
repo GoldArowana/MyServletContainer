@@ -22,9 +22,9 @@ public class SocketConnector extends AbstractConnector {
     private final int port;
     private final String host;
     private final int backLog;
-    private final EventListener<Connection> eventListener;
     private ServerSocket serverSocket;
     private volatile boolean started = false;
+    private final EventListener<Connection> eventListener;
 
     public SocketConnector(int port, EventListener<Connection> eventListener) {
         this(port, LOCALHOST, DEFAULT_BACKLOG, eventListener);

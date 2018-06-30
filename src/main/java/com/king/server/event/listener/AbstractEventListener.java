@@ -5,7 +5,6 @@ import com.king.server.event.handler.EventHandler;
 
 public abstract class AbstractEventListener<T> implements EventListener<T> {
 
-    @Override
     public void onEvent(T event) throws EventException {
         EventHandler<T> eventHandler = getEventHandler(event);
         eventHandler.handle(event);
