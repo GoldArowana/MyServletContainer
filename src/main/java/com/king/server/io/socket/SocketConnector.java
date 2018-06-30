@@ -1,5 +1,6 @@
 package com.king.server.io.socket;
 
+import com.king.server.event.EventListener;
 import com.king.server.io.Connector;
 import com.king.server.io.ConnectorException;
 import com.king.server.io.IoUtils;
@@ -10,14 +11,16 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class SocketConnector extends Connector {
+public class SocketConnector extends Connector<Socket> {
     private static final Logger LOGGER = LoggerFactory.getLogger(SocketConnector.class);
     private final int port;
+    private final EventListener<Socket> eventListener;
     private ServerSocket serverSocket;
     private volatile boolean started = false;
 
-    public SocketConnector(int port) {
+    public SocketConnector(int port, EventListener<Socket> eventListener) {
         this.port = port;
+        this.eventListener = eventListener;
     }
 
     @Override
@@ -38,7 +41,7 @@ public class SocketConnector extends Connector {
                 Socket socket = null;
                 try {
                     socket = serverSocket.accept();
-                    LOGGER.info("新增连接：" + socket.getInetAddress() + ":" + socket.getPort());
+                    whenAccept(socket);
                 } catch (IOException e) {
                     //单个Socket异常，不要影响整个Connector
                     LOGGER.error(e.getMessage(), e);
@@ -47,6 +50,11 @@ public class SocketConnector extends Connector {
                 }
             }
         }).start();
+    }
+
+    @Override
+    protected void whenAccept(Socket socketConnect) throws ConnectorException {
+        eventListener.onEvent(socketConnect);
     }
 
     @Override

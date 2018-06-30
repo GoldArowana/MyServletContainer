@@ -4,7 +4,6 @@ import com.king.server.Server;
 import com.king.server.ServerStatus;
 import com.king.server.config.ServerConfig;
 import com.king.server.io.Connector;
-import com.king.server.io.IoUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,9 +12,9 @@ import java.util.List;
 
 public class SimpleServer implements Server {
     private static Logger logger = LoggerFactory.getLogger(SimpleServer.class);
-    private volatile ServerStatus serverStatus = ServerStatus.STOPED;
     private final int port;
     private final List<Connector> connectorList;
+    private volatile ServerStatus serverStatus = ServerStatus.STOPED;
 
     public SimpleServer(ServerConfig serverConfig, List<Connector> connectorList) {
         this.port = serverConfig.getPort();

@@ -2,7 +2,7 @@ package com.king.server.io;
 
 import com.king.server.LifeCycle;
 
-public abstract class Connector implements LifeCycle {
+public abstract class Connector<T> implements LifeCycle {
     @Override
     public void start() {
         init();
@@ -12,4 +12,6 @@ public abstract class Connector implements LifeCycle {
     protected abstract void init() throws ConnectorException;
 
     protected abstract void acceptConnect() throws ConnectorException;
+
+    protected abstract void whenAccept(T connect) throws ConnectorException;
 }

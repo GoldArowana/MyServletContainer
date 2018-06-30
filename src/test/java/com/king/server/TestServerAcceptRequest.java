@@ -16,15 +16,20 @@ import java.net.SocketAddress;
 import static org.junit.Assert.assertTrue;
 
 public class TestServerAcceptRequest extends TestServerBase {
-    private static Logger logger = LoggerFactory.getLogger(TestServerAcceptRequest.class);
-    private static Server server;
     // 设置超时时间为500毫秒
     private static final int TIMEOUT = 500;
+    private static Logger logger = LoggerFactory.getLogger(TestServerAcceptRequest.class);
+    private static Server server;
 
     @BeforeClass
     public static void init() {
         ServerConfig serverConfig = new ServerConfig();
         server = ServerFactory.getServer(serverConfig);
+    }
+
+    @AfterClass
+    public static void destroy() {
+        server.stop();
     }
 
     @Test
@@ -46,10 +51,5 @@ public class TestServerAcceptRequest extends TestServerBase {
                 IoUtils.closeQuietly(socket);
             }
         }
-    }
-
-    @AfterClass
-    public static void destroy() {
-        server.stop();
     }
 }
