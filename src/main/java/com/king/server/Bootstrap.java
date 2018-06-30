@@ -7,7 +7,7 @@ import java.io.IOException;
 public class Bootstrap {
     public static void main(String[] args) throws IOException {
         ServerConfig serverConfig = new ServerConfig();
-        Server server = ServerFactory.getServer(serverConfig);
+        Server server = ServerFactory.getEchoServer(serverConfig);
         server.start();
     }
 }

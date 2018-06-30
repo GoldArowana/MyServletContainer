@@ -12,7 +12,7 @@ public class TestServer extends TestServerBase {
     @BeforeClass
     public static void init() {
         ServerConfig serverConfig = new ServerConfig();
-        server = ServerFactory.getServer(serverConfig);
+        server = ServerFactory.getEchoServer(serverConfig);
     }
 
     @Test

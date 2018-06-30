@@ -2,6 +2,8 @@ package com.king.server;
 
 import com.king.server.config.ServerConfig;
 import com.king.server.event.impl.SocketEventListener;
+import com.king.server.handler.impl.EchoEventHandler;
+import com.king.server.handler.impl.FileEventHandler;
 import com.king.server.impl.SimpleServer;
 import com.king.server.io.Connector;
 import com.king.server.io.ConnectorFactory;
@@ -13,9 +15,19 @@ import java.util.List;
 
 public class ServerFactory {
 
-    public static Server getServer(ServerConfig serverConfig) {
+    public static Server getEchoServer(ServerConfig serverConfig) {
         List<Connector> connectorList = new ArrayList<>();
-        SocketEventListener socketEventListener = new SocketEventListener();
+        SocketEventListener socketEventListener = new SocketEventListener(new EchoEventHandler());
+        ConnectorFactory connectorFactory =
+                new SocketConnectorFactory(new SocketConnectorConfig(serverConfig.getPort()), socketEventListener);
+        connectorList.add(connectorFactory.getConnector());
+        return new SimpleServer(serverConfig, connectorList);
+    }
+
+    public static Server getFileServer(ServerConfig serverConfig) {
+        List<Connector> connectorList = new ArrayList<>();
+        SocketEventListener socketEventListener =
+                new SocketEventListener(new FileEventHandler(System.getProperty("user.dir")));
         ConnectorFactory connectorFactory =
                 new SocketConnectorFactory(new SocketConnectorConfig(serverConfig.getPort()), socketEventListener);
         connectorList.add(connectorFactory.getConnector());

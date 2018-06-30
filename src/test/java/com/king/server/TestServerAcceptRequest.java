@@ -24,7 +24,7 @@ public class TestServerAcceptRequest extends TestServerBase {
     @BeforeClass
     public static void init() {
         ServerConfig serverConfig = new ServerConfig();
-        server = ServerFactory.getServer(serverConfig);
+        server = ServerFactory.getEchoServer(serverConfig);
     }
 
     @AfterClass
