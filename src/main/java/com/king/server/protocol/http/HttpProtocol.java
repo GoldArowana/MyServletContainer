@@ -8,6 +8,7 @@ public class HttpProtocol implements Protocol {
     public static final HttpProtocol VERSION20 = new HttpProtocol("2.0");
     private final String name = "http";
     private final String version;
+
     private HttpProtocol(String version) {
         this.version = version;
     }
